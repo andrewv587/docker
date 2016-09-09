@@ -15,6 +15,7 @@ sudo docker run --name elastic0 \
 	-v $HOME/data/esdata0:/usr/share/elasticsearch/data \
 	-d elasticsearch \
 	-Des.node.name="TestNode0" -Des.cluster.name="TestCluster" \
+	-Des.http.port=9200 -Des.http.transport.tcp.port=9300
 
 sudo docker run --name elastic1 \
 	--net host \
@@ -23,6 +24,7 @@ sudo docker run --name elastic1 \
 	-v $HOME/data/esdata1:/usr/share/elasticsearch/data \
 	-d elasticsearch \
 	-Des.node.name="TestNode1" -Des.cluster.name="TestCluster" \
+	-Des.http.port=9201 -Des.http.transport.tcp.port=9301
 
 sudo docker run --name elastic2  \
 	--net host \
@@ -31,3 +33,4 @@ sudo docker run --name elastic2  \
 	-v $HOME/data/esdata2:/usr/share/elasticsearch/data \
 	-d elasticsearch \
 	-Des.node.name="TestNode2" -Des.cluster.name="TestCluster" \
+	-Des.http.port=9202 -Des.http.transport.tcp.port=9302 
