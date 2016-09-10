@@ -113,12 +113,18 @@ elastic1 端口映射 9201：9200 9301：9300 数据存储在$HOME/data/elastic1
 
 elastic2 端口映射 9202：9200 9302：9300 数据存储在$HOME/data/elastic2中
 
-注意：elasticsearch采用的是docker中的--net host模式
+注意：elasticsearch采用的是docker中的--net host模式，默认5个分片，复制1份
 ###rm_elastic.sh 
 
 关闭elastic0 elastic1 elastic2节点
 
+注:elasticsearch-analysis-ik 中文分词 链接：https://github.com/medcl/elasticsearch-rtf
 
+mongo-connector可将mongo数据同步至elastticsearch
+
+kibana可自动连接elasticsearch，用于在网页上进行搜索
+
+marvel:监控集群状态 kibana安装marvel插件，elasticsearch安装marvel-agent插件
 
 
 
