@@ -4,12 +4,6 @@
 #Author:Huang Weihang
 #Email:huangweihang14@mails.ucas.ac.cn
 #Data:2016-09-09
-#!/bin/bash
-#Filename:cmd.sh
-#Function:
-#Author:Huang Weihang
-#Email:huangweihang14@mails.ucas.ac.cn
-#Data:2016-09-08
 mongo localhost:40000/admin --eval \
 	"db.runCommand( { addshard :
 	'testSet0/172.17.0.2:27017,172.17.0.3:27017,172.17.0.4:27017'});"

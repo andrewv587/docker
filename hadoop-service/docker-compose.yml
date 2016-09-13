@@ -1,0 +1,79 @@
+version: '2'
+
+services:
+  namenode:
+    image: uhopper/hadoop-namenode
+    volumes:
+        - /home/hwh/data/hadoop/namenode:/hadoop/dfs/name
+    ports:
+        - "8020:8020"
+        - "50070:50070"
+    environment:
+        - CLUSTER_NAME=hadoop
+
+  datanode1:
+    image: uhopper/hadoop-datanode
+    volumes:
+        - /home/hwh/data/hadoop/datanode1:/hadoop/dfs/data
+    environment:
+        - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+        - HDFS_CONF_dfs_replication=3
+        - HDFS_CONF_dfs_permissions=false
+
+  datanode2:
+    image: uhopper/hadoop-datanode
+    volumes:
+        - /home/hwh/data/hadoop/datanode2:/hadoop/dfs/data
+    environment:
+        - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+
+  datanode3:
+    image: uhopper/hadoop-datanode
+    volumes:
+        - /home/hwh/data/hadoop/datanode3:/hadoop/dfs/data
+    environment:
+        - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+
+  resourcemanager:
+    image: uhopper/hadoop-resourcemanager
+    ports:
+        - "8088:8088"
+        - "8032:8032"
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - YARN_CONF_yarn_log___aggregation___enable=true
+
+
+  nodemanager1:
+    image: uhopper/hadoop-nodemanager
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - YARN_CONF_yarn_log___aggregation___enable=true
+      - YARN_CONF_yarn_nodemanager_remote___app___log___dir=/app-logs
+
+  nodemanager2:
+    image: uhopper/hadoop-nodemanager
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - YARN_CONF_yarn_log___aggregation___enable=true
+      - YARN_CONF_yarn_nodemanager_remote___app___log___dir=/app-logs
+
+  nodemanager3:
+    image: uhopper/hadoop-nodemanager
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+      - YARN_CONF_yarn_log___aggregation___enable=true
+      - YARN_CONF_yarn_nodemanager_remote___app___log___dir=/app-logs
+
+
+
+# via docker exec -ti spark bash to have a spark environment.
+# spark:
+#    image: uhopper/hadoop-spark
+#    environment:
+#        - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+#        - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+#    command: tail -f /var/log/dmesg
